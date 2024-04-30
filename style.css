@@ -1,0 +1,101 @@
+body {
+	margin:0;
+	font-family: monospace;
+
+	--list-width: 100px;
+	--info-width: 500px;
+}
+
+#benchmark_list {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: var(--list-width);
+	height: 100vh;
+	background: white;
+	border: 1px solid black;
+	box-sizing: border-box;
+	overflow-y: auto;
+}
+#benchmark_list ul {padding: 10px;}
+#benchmark_list li {list-style: none;}
+#map {
+	position: fixed;
+	left: var(--list-width);
+	width: calc(100vw - var(--list-width) - var(--info-width));
+	height:100vh;
+}
+#zoom-in {
+    position: fixed;
+    z-index: 900;
+    background: white;
+    width: 200px;
+    text-align: center;
+    left: calc(0.5 * ( 100vw - var(--list-width) - var(--info-width) ));
+    height: 30px;
+    top: calc(50vh - 15px);
+}
+#info {
+	padding: 10px;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	width: var(--info-width);
+	height:100vh;
+	overflow-y: auto;
+	background: white;
+}
+#info table {
+	border-collapse: collapse;
+	width: 100%;
+}
+#info td, #info th {
+	/* vertical-align: top; */
+	/* height: 20px; */
+	border-bottom: 1px solid black;
+}
+#info th {text-align:left;}
+
+
+.selected {background: red;}
+.red {color:red}
+
+
+#reference_points {
+	--circle-radius: 50px;
+	margin: 60px;
+	display: inline-block;
+	position: relative;
+	border-radius: 100%;
+	border: 1px solid black;
+	/* margin-top: 400px; */
+	height: calc(2 * var(--circle-radius));
+	width: calc(2 * var(--circle-radius));
+}
+.reference_point {
+    position: absolute;
+    left: var(--circle-radius);
+    top: calc(0.90 * var(--circle-radius));
+    padding-left: var(--circle-radius);
+    font-size: 0.7em;
+    width: 56px;
+    transform-origin: left center;
+}
+#reference_rose {
+	position: absolute;
+	top: calc(var(--circle-radius) - 0.5em);
+	left: calc(var(--circle-radius) - 0.25em);
+	font-size: 2em;
+}
+
+
+#photos {
+	overflow-x: auto;
+}
+#photos img {
+	height: 100px;
+	padding-right: 10px;
+	cursor: zoom-in;
+}
+h1,h2,h3,h4,h5,h6,.center {text-align:center;display:block;width:100%;}
+pre {font-size: 0.6em}

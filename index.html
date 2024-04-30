@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>benchmarking</title>
+
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<main>
+			<div id="zoom-in" v-if="zoom_in">Zoom In<br>to view marks</div>
+			<div id="benchmark_list">
+				<b>Benchmarks</b><br>
+				{{zoom_in ? shown_benchmarks.length : 0}} shown
+				<ul>
+					<li v-if="!zoom_in" v-for="benchmark in shown_benchmarks" :class="{'selected':benchmark.pid==current_pid}">
+						<a
+							@mouseenter="highlightMarker(benchmark.pid)"
+							@mouseleave="unhighlightMarker(benchmark.pid)"
+							@click="chooseMarker(benchmark.pid)"
+							:href="'#'+benchmark.pid">
+							{{benchmark.pid}}
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div id="map"></div>
+			<div id="info" v-if="current_benchmark.location">
+				<h3>Benchmark <a :href="'https://www.ngs.noaa.gov/cgi-bin/ds_mark.prl?PidBox='+current_pid" target="_blank">{{current_pid}}</a></h3>
+				<div class="center">
+					<i>{{current_benchmark["state/county"]}} {{current_benchmark.usgs_quad}} {{current_benchmark.country}}</i><br>
+					<i :title="`Datum: ${current_benchmark.location.datum}\nMethod: ${current_benchmark.location.method}`">
+						{{toDMS(current_benchmark.location.longitude,true)}}  {{toDMS(current_benchmark.location.latitude,false)}}
+					</i><br>
+					<br>
+				</div>
+
+				<!-- monumentation ================================================================================== -->
+				<section>
+					<b>Monumentation:</b><br><br>
+					<table>
+						<tr v-if="current_benchmark.special_categories.length>0">
+							<th>Category:</th>
+							<td><span v-for="category in current_benchmark.special_categories">{{category}}</span></td>
+						</tr>
+						<tr><th>Type:</th><td>{{current_benchmark.marker_type.description}} ({{current_benchmark.marker_type.code}})</td></tr>
+						<tr v-if="current_benchmark.setting"><th>Setting:</th><td>{{current_benchmark.setting.description}} ({{current_benchmark.setting.code}})</td></tr>
+						<tr><th>Stamping:</th><td>{{current_benchmark.stamping}}</td></tr>
+						<tr><th>Designation:</th><td>{{current_benchmark.designation}}</td></tr>
+						<tr v-if="current_benchmark.logo"><th>Logo:</th><td>{{current_benchmark.logo}}</td></tr>
+						<tr><th>Satellite:</th><td>{{current_benchmark.satellite}}</td></tr>
+						<tr v-if="current_benchmark.projection">
+							<th>Projection:</th>
+							<td>{{current_benchmark.projection.direction}}
+							<span v-if="current_benchmark.projection.amount">({{current_benchmark.projection.amount}})</span></td>
+						</tr>
+						<tr v-if="current_benchmark.rod_pipe_depth"><th>Rod Depth:</th><td>{{current_benchmark.rod_pipe_depth}}</td></tr>
+						<tr v-if="current_benchmark.sleeve_depth"><th>Sleeve Depth:</th><td>{{current_benchmark.sleeve_depth}}</td></tr>
+						<tr v-if="current_benchmark.stability"><th>Stability:</th><td>{{current_benchmark.stability.description}} ({{current_benchmark.stability.code}})</td></tr>
+						<tr v-if="current_benchmark.magnetic"><th>Megnetic:</th><td>{{current_benchmark.magnetic.description}} ({{current_benchmark.magnetic.code}})</td></tr>
+						<tr v-if="current_benchmark.orthometric_height" :title="`Datum: ${current_benchmark.orthometric_height.datum}\nMethod: ${current_benchmark.orthometric_height.method}`">
+							<th>Height:</th>
+							<td>{{current_benchmark.orthometric_height.meters}} m ({{current_benchmark.orthometric_height.feet}} ft)</td>
+						</tr>
+						<tr><th>Grid:</th><td>{{current_benchmark.us_national_grid_address.address}}</td></tr>
+					</table>
+					<br>
+				</section>
+
+				<!-- reference marks ================================================================================== -->
+				<section v-if="current_benchmark.references.length>0">
+					<b>Reference Points:</b>
+					<b>Reference Points:</b>
+					<div class="center">
+						<div id="reference_points">
+							<div
+								class="reference_point"
+								v-for="ref in current_benchmark.references"
+								:style="{transform:'rotate('+(ref.bearing-90)+'deg)'}"
+								:title="ref.pid + '\n' + ref.name + '\n\ndistance: ' + ref.distance + ' ('+ref.unit.toLowerCase()+')\nbearing: '+Math.round(ref.bearing)+'° from North'">--- {{ref.pid}}</div>
+							<div id="reference_rose">△</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- photographs ================================================================================== -->
+				<section v-if="current_benchmark.photographs.length>0">
+					<b>Photographs:</b><br>
+					<div id="photos">
+						<img v-for="photo in current_benchmark.photographs" :src="photo" @click="openImage($event.target.src)">
+					</div>
+				</section>
+				<section v-if="current_benchmark.history">
+					<b>Mark History:</b>
+					<table>
+						<tr><th>Date</th><th>Condition</th><th>Organization</th></tr>
+						<tr v-for="hitem in current_benchmark.history"><td>{{hitem.date}}</td><td>{{hitem.condition}}</td><td>{{hitem.org_code}}</td></tr>
+					</table>
+				</section>
+				<section>
+					<b>Description:</b>
+					<p>{{current_benchmark.description}}</p>
+				</section>
+
+				<section>
+					<b>More Info and Warnings:</b>
+					<pre>{{current_benchmark.data_notes}}</pre>
+					<pre class="red">{{current_benchmark.warnings}}</pre>
+				</section>
+				<div class="center">RETRIEVED {{current_benchmark.database_retrieval}}</div><br><br>
+			</div>
+			<div v-if="!current_benchmark.location" id="info">Click on the map to view a benchmark</div>
+		</main>
+
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>

@@ -1,0 +1,6 @@
+ports= 80, 443
+
+[request * /*] -> [geodesy.noaa.gov /*]
+
+[response *] -> [*]
+Access-Control-Allow-Origin: *
