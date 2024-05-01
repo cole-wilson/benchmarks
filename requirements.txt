@@ -1,4 +1,4 @@
-flask
-requests
-flask_cors
-geopandas
+#flask
+#requests
+#flask_cors
+#geopandas
