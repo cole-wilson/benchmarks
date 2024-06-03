@@ -2,3 +2,10 @@ flask
 requests
 requests_toolbelt
 flask_cors
+
+pandas
+fiona
+shapely
+pyproj
+rtree
+geopandas
