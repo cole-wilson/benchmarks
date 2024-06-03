@@ -12,8 +12,8 @@ WORKDIR /usr/src/app
 COPY ./requirements.txt /usr/src/app/
 RUN python -m pip install -U --force-reinstall pip
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python ./fetch_data.py
 COPY ./ /usr/src/app
+RUN python ./fetch_data.py
 
 EXPOSE 80
 
