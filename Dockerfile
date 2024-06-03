@@ -1,7 +1,7 @@
 FROM python:3.8.2-alpine
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache make g++ bash git openssh postgresql-dev curl
+    apk add --no-cache make g++ bash git openssh curl
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk del build-deps
