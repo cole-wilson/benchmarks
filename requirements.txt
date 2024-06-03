@@ -3,6 +3,7 @@ requests
 requests_toolbelt
 flask_cors
 
+cython
 pandas
 fiona
 shapely
