@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 
 COPY ./requirements.txt /usr/src/app/
 RUN python -m pip install -U --force-reinstall pip
-RUN python -m pip install shapely, pyproj, fiona, pyogrio, rtree
+RUN python -m pip install shapely pyproj fiona pyogrio rtree
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ./ /usr/src/app
 RUN python ./fetch_data.py
