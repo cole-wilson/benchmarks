@@ -10,18 +10,8 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY ./requirements.txt /usr/src/app/
-WORKDIR /tmp
-RUN wget http://download.osgeo.org/libspatialindex/spatialindex-src-1.8.5.tar.gz && \
-  tar -xvzf spatialindex-src-1.8.5.tar.gz && \
-  cd spatialindex-src-1.8.5 && \
-  ./configure && \
-  make && \
-  make install && \
-  cd - && \
-  rm -rf spatialindex-src-1.8.5* && \
-  ldconfig
-WORKDIR /usr/src/app
 RUN python -m pip install -U --force-reinstall pip
+RUN python -m pip install shapely, pyproj, fiona, pyogrio, rtree
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ./ /usr/src/app
 RUN python ./fetch_data.py
