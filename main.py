@@ -6,10 +6,12 @@ import requests
 
 import geopandas
 
+print("loading combined.json")
 gdf = geopandas.read_file("./combined.json")
 gdf.set_index("PID")
 gdf.columns = map(str.lower, gdf.columns)
 
+print("loading data.json")
 data = json.loads(open("./data.json").read())
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -37,4 +39,4 @@ def get_photos(pid):
     return list(map(lambda i: "https://www.ngs.noaa.gov/"+i.replace("thumbnail", "image"), re.findall(r'src="(.*?)"', data.text)))
 
 if __name__ == "__main__":
-    app.run("localhost", 8081)
+    app.run("0.0.0.0", 8081)

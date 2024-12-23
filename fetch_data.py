@@ -27,6 +27,7 @@ def get_zipfile_item(response:requests.Response, itempath:str) -> bytes:
 
 shapefile_list = requests.get(SHAPEFILE_URL).text
 shapefile_regions = re.findall(r'<option value="(?P<key>\w+)">(?P<region>.*)<\/option>', shapefile_list)
+# shapefile_regions = [('ID', 'IDAHO'), ('WA', 'WASHINGTON'), ('OR', 'OREGON')]
 for key, region in shapefile_regions:
     print(f"fetching shapefile for {region} ({key})")
 

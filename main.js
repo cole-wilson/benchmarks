@@ -32,7 +32,8 @@ let markerStyle = {color: "red",radius: 3,opacity: 0,fillOpacity: 1,weight: 0}
 var marker_layer;
 
 async function getBenchmarkData(pid) {
-	let response = await fetch("http://localhost:8081/"+pid+".json")
+	let response = await fetch("https://bmserver.cole.ws/"+pid+".json")
+	// let response = await fetch("http://localhost:8081/"+pid+".json")
 	app.current_benchmark = await response.json();
 }
 
@@ -70,7 +71,7 @@ async function fetchMarks() {
 		return;
 	}
 	app.zoom_in = false;
-	let response = await fetch("http://localhost:8081/"+map.getBounds().toBBoxString());
+	let response = await fetch("https://bmserver.cole.ws/"+map.getBounds().toBBoxString());
 
 	app.geojson = await response.json();
 	app.shown_benchmarks = app.geojson.features.map((i)=>i.properties).sort((a,b)=>parseFloat(b.dec_lat)-parseFloat(a.dec_lat))
