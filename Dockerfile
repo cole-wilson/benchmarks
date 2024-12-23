@@ -19,4 +19,4 @@ COPY ./requirements.txt /usr/src/app/
 
 EXPOSE 80
 
-CMD ["python", "main.py"]
+CMD ["python", "-m", "http.server"]
