@@ -11,12 +11,12 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY ./requirements.txt /usr/src/app/
-RUN python -m pip install -U --force-reinstall pip
-RUN python -m pip install shapely pyproj fiona pyogrio rtree
-RUN pip install --no-cache-dir -r requirements.txt
-COPY ./ /usr/src/app
-RUN python ./fetch_data.py
+# RUN python -m pip install -U --force-reinstall pip
+# RUN python -m pip install shapely pyproj fiona pyogrio rtree
+# RUN pip install --no-cache-dir -r requirements.txt
+# COPY ./ /usr/src/app
+# RUN python ./fetch_data.py
 
 EXPOSE 80
 
-CMD ["python", "main.py"]
+CMD ["python", ""]
