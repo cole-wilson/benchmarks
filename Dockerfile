@@ -14,7 +14,7 @@ RUN apt-get install -y gdal-bin libgdal-dev g++
 RUN python -m pip install shapely pyproj fiona pyogrio rtree
 RUN pip install --no-cache-dir -r requirements.txt
 
-
+RUN ls
 
 # RUN python ./fetch_data.py
 
