@@ -8,6 +8,7 @@ COPY ./ /usr/src/app
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
+RUN sudo apt install libgdal-dev
 
 
 RUN python -m pip install shapely pyproj fiona pyogrio rtree
