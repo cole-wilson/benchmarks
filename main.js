@@ -1,6 +1,7 @@
 var app = new Vue({
 	el: 'main',
 	data: {
+		showintro: true,
 		current_pid: null,
 		current_benchmark: {},
 		zoom_in: false,

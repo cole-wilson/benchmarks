@@ -1,3 +1,16 @@
+#intro {
+	position: fixed;
+	top: 25vh;
+	left: 25vw;
+	width: 50vw;
+	/* height: 50vh; */
+	background: #ddd;
+	border: 1px solid black;
+	padding: 30px;
+	box-sizing: border-box;
+	z-index: 100000;
+}
+
 body {
 	margin:0;
 	font-family: monospace;
@@ -99,3 +112,26 @@ body {
 }
 h1,h2,h3,h4,h5,h6,.center {text-align:center;display:block;width:100%;}
 pre {font-size: 0.6em}
+
+
+#name {
+	position: fixed;
+	top: 50vh;
+	right: 0;
+	/* width: 100vw; */
+	/* padding: 2px; */
+	text-align: center;
+	transform: rotate(-90deg);
+	transform-origin: bottom right;
+	color: grey;
+	font-size: 11px;
+	z-index: 99999;
+	color: black;
+	/* background: #888; */
+	line-height: 1.4em;
+}
+#name a {
+	text-decoration: none;
+	font-weight: bold;
+	color: inherit;
+}

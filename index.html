@@ -10,7 +10,15 @@
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
+		<div id="name">a <a href="https://cole.ws">cole wilson</a> project</div>
 		<main>
+			<div id="intro" v-if="showintro">
+				<h1>Benchmarks</h1>
+				About...
+				<div style="text-align: center;">
+					<button onclick="app.showintro = false">close</button>
+				</div>
+			</div>
 			<div id="zoom-in" v-if="zoom_in">Zoom In<br>to view marks</div>
 			<div id="benchmark_list">
 				<b>Benchmarks</b><br>
@@ -27,7 +35,9 @@
 					</li>
 				</ul>
 			</div>
-			<div id="map"></div>
+			<div id="map">
+
+			</div>
 			<div id="info" v-if="current_benchmark.location">
 				<h3>Benchmark <a :href="'https://www.ngs.noaa.gov/cgi-bin/ds_mark.prl?PidBox='+current_pid" target="_blank">{{current_pid}}</a></h3>
 				<div class="center">
@@ -60,7 +70,7 @@
 						<tr v-if="current_benchmark.rod_pipe_depth"><th>Rod Depth:</th><td>{{current_benchmark.rod_pipe_depth}}</td></tr>
 						<tr v-if="current_benchmark.sleeve_depth"><th>Sleeve Depth:</th><td>{{current_benchmark.sleeve_depth}}</td></tr>
 						<tr v-if="current_benchmark.stability"><th>Stability:</th><td>{{current_benchmark.stability.description}} ({{current_benchmark.stability.code}})</td></tr>
-						<tr v-if="current_benchmark.magnetic"><th>Megnetic:</th><td>{{current_benchmark.magnetic.description}} ({{current_benchmark.magnetic.code}})</td></tr>
+						<tr v-if="current_benchmark.magnetic"><th>Magnetic:</th><td>{{current_benchmark.magnetic.description}} ({{current_benchmark.magnetic.code}})</td></tr>
 						<tr v-if="current_benchmark.orthometric_height" :title="`Datum: ${current_benchmark.orthometric_height.datum}\nMethod: ${current_benchmark.orthometric_height.method}`">
 							<th>Height:</th>
 							<td>{{current_benchmark.orthometric_height.meters}} m ({{current_benchmark.orthometric_height.feet}} ft)</td>

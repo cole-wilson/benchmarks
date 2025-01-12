@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 
-RUN python ./fetch_data.py
+# RUN python ./fetch_data.py
 
 EXPOSE 80
 
