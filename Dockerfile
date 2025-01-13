@@ -20,4 +20,4 @@ RUN ls && pwd
 
 EXPOSE 80
 
-CMD ["python", "main.py"]
+CMD python main.py
